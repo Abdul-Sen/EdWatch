@@ -63,7 +63,7 @@ function Profile(props) {
     setIsEditing(currentState => !currentState);
   };
   const changeName = e => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setName(currentState => value);
   };
 

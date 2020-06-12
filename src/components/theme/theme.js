@@ -3,11 +3,21 @@ import { ThemeProvider } from "styled-components";
 
 const theme = {
   colors: {
-    powderWhite: "#FFFDF9",
-    botticelli: "#C8D6E5",
-    persianGreen: "#06B49A",
-    lightBlue: "#AFDBD2",
-    onyx: "#36313D"
+    backgroundColors: {
+      primary: "#faf6e9",
+      secondary: "#ece8d9",
+      third: "#fffdf6",
+      forth: "#494949"
+    },
+    textColors: {
+      primary: "#212121",
+      secondary: "#757575"
+    },
+    dividerColor: "#BDBDBD",
+    iconColor:{
+      primary: "#fffdf6",
+      activePrimary: "#ece8d9"
+    }
   },
   fonts: ["Roboto", "sans-serif"],
   fontSizes: {
