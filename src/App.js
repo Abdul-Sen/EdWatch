@@ -2,24 +2,30 @@ import React from "react";
 import Profile from "./components/profile";
 import Theme from "./components/theme";
 import styled from "styled-components";
-import Comment from './components/comment';
+import ChatBox from './components/chatbox';
+
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background-color: ${props => props.theme.colors.botticelli};
-`;
+  background-color: ${props => props.theme.colors.backgroundColors.primary};
+  display:flex;
+  overflow-y:auto;
 
-const Heading = styled.h1`
-  font-size: ${({ isHeading, theme: { fontSizes } }) =>
-    isHeading ? fontSizes.large : fontSizes.small};
-  color: ${({ theme: { colors } }) => colors.persianGreen};
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export default function App() {
   return (
     <Theme>
       <Container>
-        <Profile />
+        <Profile style={{width: "50%"}}  />
+        <div style={{width: "50%"}} >
+          <ChatBox />
+        </div>
       </Container>
     </Theme>
   );
