@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const Name = styled.h3`
-  font-size: 1.4rem;
+  font-size: ${ props => props.theme.fontSizes.medium};
   padding: 0.4rem 1rem 1rem;
   font-family: ${props => props.theme.fonts[0]};
 `;
@@ -39,8 +39,8 @@ const EditBtn = styled.button`
 const FaIcon = styled(FontAwesomeIcon)``;
 
 const ProfileIcon = styled.img`
-  width: 100px;
-  height: 100px;
+  width: ${props => props.theme.fontSizes.xlarge};
+  height: ${props => props.theme.fontSizes.xlarge};
   border-radius: 50%;
 `;
 
