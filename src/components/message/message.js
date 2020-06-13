@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     display:flex;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     background-color: ${props => props.theme.colors.backgroundColors.third};
     border-radius: 10px;
 `;
@@ -21,14 +21,16 @@ const RightContainer = styled.div`
 
 const Name = styled.p`
     font-family: ${props => props.theme.fonts[0]};
-    font-size: 0.8rem;
+    font-size: ${props => props.theme.fontSizes.xsmall};
     margin-top: 5px;
 `;
 
 const ChatMessage = styled.p`
     font-family: ${props => props.theme.fonts[1]};
+    font-size: ${props => props.theme.fontSizes.medium};
     margin-top: 8px;
     margin-bottom: 8px;
+    margin-right: 5px;
 `;
 
 function Message({name, message,image})
