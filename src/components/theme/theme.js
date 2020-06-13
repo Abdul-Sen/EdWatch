@@ -21,9 +21,11 @@ const theme = {
   },
   fonts: ["Roboto", "sans-serif"],
   fontSizes: {
-    small: "1em",
-    medium: "2em",
-    large: "3em"
+    xsmall: "0.6rem",
+    small: "0.8rem",
+    medium: "1rem",
+    large: "2rem",
+    xlarge: "3.5rem"
   }
 };
 
