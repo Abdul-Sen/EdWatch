@@ -4,7 +4,7 @@ import Theme from "./components/theme";
 import styled from "styled-components";
 import ChatBox from './components/chatbox';
 import Navbar from './components/navbar';
-import Video from './components/video/';
+import Player from './components/player';
 
 const Container = styled.div`
   justify-content: space-around;
@@ -44,18 +44,14 @@ width: 30%;
   }
 `;
 
-const VideoStyled = styled(Video)`
-  margin-top: 30px;
-  margin-bottom: 30px;
-`;
 export default function App() {
   return (
     <Theme>
       <MainContainer>
         <Navbar></Navbar>
         <Container>
-          <LeftContainer >  
-            <VideoStyled youtubeId="lTRiuFIWV54" />
+          <LeftContainer >              
+            <Player />
             <Profile />
           </LeftContainer>
           <RightContainer>
