@@ -15,10 +15,12 @@ const ModalBackground = styled.div`
 `;
 
 const ModalForeground = styled.div`
+    max-height: 80%;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 1vh auto;
     padding: 10px 15px 20px 20px;
     border: 1px solid #888;
     width: 80%;
