@@ -11,12 +11,12 @@ function Chat (props)
 {
     const [messages] = useState([
         {
-            image : (process.env.PUBLIC_URL + '/avatars/01.png'),
+            image : (process.env.PUBLIC_URL + '/avatars/Artboards_Diversity_Avatars_by_Netguru-1.png'),
             name: 'drake',
             message: 'This is the viral video i was talking about :)'
         },
         {
-            image : (process.env.PUBLIC_URL + '/avatars/02.png'),
+            image : (process.env.PUBLIC_URL + '/avatars/Artboards_Diversity_Avatars_by_Netguru-2.png'),
             name: 'Random Name',
             message: 'oh this one'
         }
