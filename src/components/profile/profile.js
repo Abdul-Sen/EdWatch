@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import Modal from '../modal';
 import genericImg from "./generic.png";
+import AvatarGrid from '../avatarGrid';
 
 const Container = styled.div`
   align-items: flex-start;
@@ -58,6 +60,12 @@ function Profile(props) {
   
   const [name, setName] = useState("Random Name");
   const [isEditing, setIsEditing] = useState(false);
+  const [showModal,setShowModal] = useState(false);
+
+  const reverseModalState = ()=>
+  {
+    setShowModal((currentState) => !currentState);
+  }
 
   const changeEditState = () => {
     setIsEditing(currentState => !currentState);
@@ -75,7 +83,10 @@ function Profile(props) {
 
   return (
     <Container>
-      <ProfileIcon src={genericImg} alt={"user profile"} />
+      {showModal && <Modal closeHandler={reverseModalState}>
+        <AvatarGrid />
+        </Modal>}
+      <ProfileIcon src={genericImg} onClick={reverseModalState} alt={"user profile"} />
       {!isEditing ? (
         <Name>{name}</Name>
       ) : (
