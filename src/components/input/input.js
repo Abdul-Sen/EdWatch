@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
-import genericImg from './generic.png';
+import {useSelector,useDispatch} from 'react-redux';
+import {addMessage} from '../../actions/messages';
 
 const UserImage = styled.img`
     width: 2rem;
@@ -25,10 +26,29 @@ const Container = styled.div`
 `;
 
 function Input(props) {
+    const inputBox = useRef(null);
+    const userProfile = useSelector(state => state.userProfile);
+    const dispatch = useDispatch();
+    const saveMessage = (newMessage)=>{
+        dispatch(addMessage(newMessage));
+    }
+
+    const checkIfEnter = event => {
+        if (event.key === "Enter" && event.target.value != "") {
+            const {value} = event.target;
+            const payload = {
+            image : userProfile.profileImage,
+            name: userProfile.name,
+            message: value
+            }
+            saveMessage(payload);
+            inputBox.current.value= "";
+        }
+      };
     return (
         <Container>
-            <UserImage src={genericImg} />
-            <InputBox></InputBox>
+            <UserImage src={userProfile.profileImage} />
+            <InputBox ref={inputBox} type="text" onKeyDown={checkIfEnter}></InputBox>
         </Container>
     );
 }
