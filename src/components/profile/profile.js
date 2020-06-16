@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import Modal from '../modal';
-import genericImg from "./generic.png";
 import AvatarGrid from '../avatarGrid';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeName as CN } from '../../actions/userProfile';
+import {Avatar, Circle} from '../../styles';
 
 const Container = styled.div`
   align-items: flex-start;
@@ -22,12 +24,12 @@ const Container = styled.div`
 
 const Name = styled.h3`
   font-size: ${ props => props.theme.fontSizes.medium};
-  padding: 0.4rem 1rem 1rem;
+  padding: 0.4rem 0.3rem 0.3rem;
   font-family: ${props => props.theme.fonts[0]};
 `;
 
 const EditBtn = styled.button`
-  padding: 8px;
+  padding:8px;
   background: transparent;
   border: none;
   &:active {
@@ -57,13 +59,12 @@ const TextField = styled.input`
 `;
 
 function Profile(props) {
-  
-  const [name, setName] = useState("Random Name");
+  const dispatch = new useDispatch();
+  const userProfile = useSelector(state => state.userProfile);
   const [isEditing, setIsEditing] = useState(false);
-  const [showModal,setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const reverseModalState = ()=>
-  {
+  const reverseModalState = () => {
     setShowModal((currentState) => !currentState);
   }
 
@@ -72,9 +73,13 @@ function Profile(props) {
   };
   const changeName = e => {
     const { value } = e.target;
-    setName(currentState => value);
+    dispatch(CN(value));
   };
 
+  /**
+   * 
+   * @param {event} event checks if user pressed enter, and (TODO: calls the callback function)
+   */
   const checkIfEnter = event => {
     if (event.key === "Enter") {
       changeEditState();
@@ -84,18 +89,20 @@ function Profile(props) {
   return (
     <Container>
       {showModal && <Modal closeHandler={reverseModalState}>
-        <AvatarGrid />
-        </Modal>}
-      <ProfileIcon src={genericImg} onClick={reverseModalState} alt={"user profile"} />
+        <AvatarGrid closeHandler={reverseModalState} />
+      </Modal>}
+      <Circle>
+        <Avatar src={userProfile.profileImage} onClick={reverseModalState} alt={"user profile"} />
+      </Circle>
       {!isEditing ? (
-        <Name>{name}</Name>
+        <Name>{userProfile.name}</Name>
       ) : (
-        <TextField
-          value={name}
-          onChange={changeName}
-          onKeyDown={checkIfEnter}
-        />
-      )}
+          <TextField
+            value={userProfile.name}
+            onChange={changeName}
+            onKeyDown={checkIfEnter}
+          />
+        )}
       <EditBtn onClick={changeEditState}>
         <FaIcon icon={faPencilAlt} />
       </EditBtn>

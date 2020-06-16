@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { changeProfileImage } from '../../actions/userProfile';
+import {Avatar, Circle} from '../../styles';
 
 const Container = styled.div`
     padding-bottom: 20px;
@@ -11,38 +14,26 @@ const Container = styled.div`
     overflow: auto;
 `;
 
-const Circle = styled.div`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  border: 1px solid #cfcfcf;
-  margin: 7px;
-`;
-
-const Avatar = styled.img`
-  width: 4rem;
-  height: 4rem;
-  transition: all .2s ease-in-out;
-  &:hover{
-    transform: scale(1.5);
-  }
-`;
-
 // this component displays all available avatars in a grid
-function AvatarGrid(props) {
-
+function AvatarGrid({ closeHandler }) {
+    const dispatch = useDispatch();
     let images = [];
 
     for (let i = 1; i <= 59; i++) {
         images.push(process.env.PUBLIC_URL + `/avatars/Artboards_Diversity_Avatars_by_Netguru-${i}.png`);
     }
-    
+
+    const selectAvatar = (e) => {
+        dispatch(changeProfileImage(e.target.src));
+        closeHandler();
+    }
+
     return (
         <Container>
             {images.map((val, ind) => {
                 return (
                     <Circle key={ind}>
-                        <Avatar src={val} />
+                        <Avatar src={val} onClick={selectAvatar} />
                     </Circle>
                 )
             })}

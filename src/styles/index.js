@@ -1,3 +1,5 @@
 export {
-    ThemeButton
+    ThemeButton,
+    Avatar,
+    Circle
 } from "./styles";
