@@ -2,11 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./reset.css"; // removing all browser css
 import App from "./App";
+import { Provider } from 'react-redux';
+
+// Store
+import globalStore from './store/globalStore';
+
+const store = globalStore();
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   rootElement
 );
