@@ -1,2 +1,2 @@
-export {addMessage}
+export {addMessage, addMessageAsync}
 from './messages';

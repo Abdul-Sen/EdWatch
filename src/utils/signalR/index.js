@@ -1,0 +1,1 @@
+export {startConnection, sendNewMessageAsync} from './signalR';

@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import styled from 'styled-components';
 import {useSelector,useDispatch} from 'react-redux';
-import {addMessage} from '../../actions/messages';
+import {addMessage,addMessageAsync} from '../../actions/messages';
 
 const UserImage = styled.img`
     width: 2rem;
@@ -30,7 +30,7 @@ function Input(props) {
     const userProfile = useSelector(state => state.userProfile);
     const dispatch = useDispatch();
     const saveMessage = (newMessage)=>{
-        dispatch(addMessage(newMessage));
+        dispatch(addMessageAsync(newMessage));
     }
 
     const checkIfEnter = event => {
