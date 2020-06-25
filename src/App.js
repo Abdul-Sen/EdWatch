@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Profile from "./components/profile";
 import Theme from "./components/theme";
 import styled from "styled-components";
 import ChatBox from './components/chatbox';
 import Navbar from './components/navbar';
 import Player from './components/player';
+import {startConnection} from './utils/signalR';
 
 const Container = styled.div`
   justify-content: space-around;
@@ -45,6 +46,15 @@ width: 30%;
 `;
 
 export default function App() {
+  
+  useEffect(()=>{
+    startConnection();
+    return ()=>{
+      console.log(`----------UNMOUNT APP-----------`);
+      // TODO - Call closeConnectionGracefully(); from singlar
+    }
+  },[]);
+  
   return (
     <Theme>
       <MainContainer>
