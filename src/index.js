@@ -5,14 +5,12 @@ import App from "./App";
 import { Provider } from 'react-redux';
 
 // Store
-import globalStore from './store/globalStore';
-
-const store = globalStore();
+import globalStore from './store/store';
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={globalStore}>
       <App />
     </Provider>
   </React.StrictMode>,
