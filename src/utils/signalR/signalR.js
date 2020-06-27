@@ -58,7 +58,7 @@ export const joinGroup = async (groupName)=>{
 export const SendNewGroupMessage = async (message)=>{
     try{
         let id = getGroupId();
-       await connect.invoke("NewGroupMessage", JSON.stringify(message), id);
+        await connect.invoke("NewGroupMessage", JSON.stringify(message), id);
        console.log(`message sent to the group`);
     }
     catch(err)
@@ -91,7 +91,7 @@ export const sendNewMessageAsync = async (payload) =>{
 /**
  * Alerts other users in group when a new user joins the group
  */
-connect.on("NewUserAlert", (alert)=>{
+connect.on("GroupAlert", (alert)=>{
     let message ={
        image: process.env.PUBLIC_URL + '/avatars/bot.png',
        message: alert,
@@ -99,3 +99,14 @@ connect.on("NewUserAlert", (alert)=>{
     }
     globalStore.dispatch(addMessage(message));
 });
+
+export const sendAlert = async (message)=>{
+    let id =getGroupId();
+    try{
+       await connect.invoke("NewGroupAlert",id, message);
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+}
