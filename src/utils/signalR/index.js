@@ -1,1 +1,1 @@
-export {startConnection, sendNewMessageAsync} from './signalR';
+export {startConnection, sendNewMessageAsync, getGroupId, joinGroup, setNewGroupID, SendNewGroupMessage} from './signalR';
