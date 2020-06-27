@@ -3,7 +3,18 @@ import * as signalR from '@microsoft/signalr';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage } from '../../actions/messages';
 import globalStore from '../../store/store';
+import { v4 as uuidv4 } from 'uuid';
+
 const connect = new signalR.HubConnectionBuilder().withUrl("http://localhost:8080/messagehub").build();
+var groupID = uuidv4();
+
+export const getGroupId = ()=> {
+    return groupID;
+}
+
+export const setNewGroupID = (id)=>{
+    groupID = id;
+}
 
 connect.on('NewMessage', (message) => {
     console.log(`New message function called from server`);
@@ -15,8 +26,10 @@ connect.on('NewMessage', (message) => {
  * Starts connecting to the signlar hub
  */
 export const startConnection = async () => {
-    try {
+    const state = globalStore.getState();
+        try {
         await connect.start();
+        await connect.invoke("AddCurrentUserToGroup",groupID ,state.userProfile.name);
         console.log(`connected`);
         console.log(`---------IMPORTANT---------`);
         console.log(connect);
@@ -25,6 +38,34 @@ export const startConnection = async () => {
     catch (err) {
         console.log(`Failed to connect to the backend...`);
         console.log(err);
+    }
+}
+
+export const joinGroup = async (groupName)=>{
+    const state = globalStore.getState();
+    try{
+        await connect.invoke("AddCurrentUserToGroup",groupName ,state.userProfile.name);
+        console.log(`You have now joined someone elses group`);
+        setNewGroupID(groupName);
+    }
+    catch(Err)
+    {
+        console.log(`Failed to join someone elses group`);
+        console.log(Err);
+    }
+}
+
+export const SendNewGroupMessage = async (message)=>{
+    try{
+        let id = getGroupId();
+       await connect.invoke("NewGroupMessage", JSON.stringify(message), id);
+       console.log(`message sent to the group`);
+    }
+    catch(err)
+    {
+        console.log(`failed to send message to group`);
+        console.log(err);
+
     }
 }
 
@@ -39,7 +80,7 @@ connect.on('ReciveNewMessage', (message)=>{
 
 /**
  * 
- * @param {JSON} payload message object that needs to be sent to the server to be emitted to rest of the users
+ * @param {JSON} payload message object that needs to be sent to the server to be emitted to ALL of the users
  */
 export const sendNewMessageAsync = async (payload) =>{
 
@@ -47,7 +88,14 @@ export const sendNewMessageAsync = async (payload) =>{
    console.log(result);
 }
 
-connect.on("RecieveMessage", (message) => {
-    console.log(`NEW MESSAGGE FROM SERVER`);
-    console.log(message);
+/**
+ * Alerts other users in group when a new user joins the group
+ */
+connect.on("NewUserAlert", (alert)=>{
+    let message ={
+       image: process.env.PUBLIC_URL + '/avatars/bot.png',
+       message: alert,
+       name: 'Bot'
+    }
+    globalStore.dispatch(addMessage(message));
 });
