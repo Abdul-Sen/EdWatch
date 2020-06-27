@@ -21,6 +21,7 @@ const ModalForeground = styled.div`
     flex-direction: column;
     background-color: #fefefe;
     margin: 1vh auto;
+    margin-top: 7vh;
     padding: 10px 15px 20px 20px;
     border: 1px solid #888;
     width: 80%;

@@ -1,4 +1,4 @@
-import {sendNewMessageAsync} from '../../utils/signalR';
+import {SendNewGroupMessage} from '../../utils/signalR';
 
 export const addMessage = (message) => ({
     type: 'ADD_MESSAGE',
@@ -9,7 +9,7 @@ export const addMessageAsync = (message)=>{
     
     return async (dispatch) => {
         //do async stuff
-        sendNewMessageAsync(message);
+        SendNewGroupMessage(message);
         
         //finish it up by calling a normal/sync method
         dispatch(addMessage(message));
