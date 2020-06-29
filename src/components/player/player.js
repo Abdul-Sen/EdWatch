@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { ThemeButton } from '../../styles';
+import {changeUrl} from '../../actions/videoState';
+import {useDispatch, useSelector} from 'react-redux';
 
 const AbsoluteContainer = styled.div`
   position: absolute;
@@ -54,10 +56,28 @@ const SearchButton = styled(ThemeButton)`
  * @param {url} props is used to play that YT video
  */
 function Player(props) {
-    const [state, setState] = useState({
-        playerReady: false,
-        url: null,
-    });
+
+    const state = useSelector((rootState)=> rootState.videoState);
+    const dispatch = useDispatch();
+
+    const loadVideo = (refElement) => {
+        // sanitize input
+        let refValue = refElement.current.value;
+        //TODO
+        if(refValue != null && isValidUrl(refValue))
+        {
+            dispatch(changeUrl(refValue));
+        }
+    }
+
+    useEffect(()=>{
+        if(isValidUrl(state.url))
+        {
+            // Let signlar know this is the video that should be streamed
+            console.log(`Letting my app know that this is the URL to use`);
+            
+        }
+    },[state.url])
 
     const boxRefMain = useRef(null);
     const boxRefSecondary = useRef(null);
@@ -73,19 +93,6 @@ function Player(props) {
       
         return true;
       }
-      
-    const loadVideo = (refElement) => {
-        // sanitize input
-        let refValue = refElement.current.value;
-        //TODO
-        if(refValue != null && isValidUrl(refValue))
-        {
-            setState((current) => ({
-                ...current,
-                url: refValue
-            }));
-        }
-    }
 
     const logProgress = (progressObj) => {
         console.log(`Test fucntion called`);
@@ -116,7 +123,6 @@ function Player(props) {
                         <ReactPlayer width='100%' height="100%" ref={playerRef} playing={true} config={{ youtube: { playerVars: { start: 0 } } }} onSeek={seekView} controls url={state.url} onProgress={logProgress}  ></ReactPlayer>}
                 </AbsoluteContainer>
             </FixedWrapper>
-            {/* <button onClick={newPosVid}> Go to new position</button> */}
             {state.url != null &&
             <Fragment>
             <SearchVideo ref={boxRefSecondary} type="text" placeholder={"Enter Video URL"} ></SearchVideo>
