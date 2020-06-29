@@ -28,6 +28,7 @@ const MainContainer = styled.div`
   align-items: stretch;
   width: 100%;
   min-height: 100vh;
+  font-family: ${props => props.theme.fonts[0]};
   background-color: lightblue;
 `;
 
