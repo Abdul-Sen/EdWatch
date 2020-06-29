@@ -1,13 +1,26 @@
 // import {HubConnectionBuilder} from '@microsoft/signalr';
 import * as signalR from '@microsoft/signalr';
-import { useSelector, useDispatch } from 'react-redux';
 import { addMessage } from '../../actions/messages';
+import {changeUrl} from '../../actions/videoState';
 import globalStore from '../../store/store';
 import { v4 as uuidv4 } from 'uuid';
 
 const connect = new signalR.HubConnectionBuilder().withUrl("http://localhost:8080/messagehub").build();
 var groupID = uuidv4();
 
+let host = true;
+
+/**
+ * 
+ * @param {boolean} val sets value for host and returns the host
+ */
+export const setIsHost = (val)=>{
+    host = val;
+}
+
+export const getIsHost =()=>{
+    return host;
+}
 export const getGroupId = ()=> {
     return groupID;
 }
@@ -46,6 +59,7 @@ export const joinGroup = async (groupName)=>{
     try{
         await connect.invoke("AddCurrentUserToGroup",groupName ,state.userProfile.name);
         console.log(`You have now joined someone elses group`);
+        setIsHost(false);
         setNewGroupID(groupName);
     }
     catch(Err)
@@ -110,3 +124,35 @@ export const sendAlert = async (message)=>{
         console.log(err);
     }
 }
+
+// ------------------- VIDEO METHODS -------------------
+/**
+ * Called by server when new user joins to get the host video from client
+ */
+connect.on("GetHostVideo",async ()=>{
+
+    let state = globalStore.getState();
+    let url = state.videoState.url;
+    if(getIsHost() == true)
+    {
+        try{
+            let id = getGroupId();
+           await connect.invoke("SetGroupVideo",url, id);
+        }
+        catch(err)
+        {
+            console.log(`failed to set group video for all people`);
+        }
+    }
+});
+
+/**
+ * Sets new video for users who do not have it set currently
+ */
+connect.on("LoadGroupVideo", (url)=>{
+    let state = globalStore.getState();
+    if(state.videoState.url != url)
+    {
+        globalStore.dispatch(changeUrl(url));
+    }
+});
