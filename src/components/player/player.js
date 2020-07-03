@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { ThemeButton } from '../../styles';
-import {changeUrl} from '../../actions/videoState';
-import {useDispatch, useSelector} from 'react-redux';
+import { updateState, updateStateAsync } from '../../actions/videoState';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsHost } from '../../utils/signalR';
 
 const AbsoluteContainer = styled.div`
   position: absolute;
@@ -57,27 +58,21 @@ const SearchButton = styled(ThemeButton)`
  */
 function Player(props) {
 
-    const state = useSelector((rootState)=> rootState.videoState);
+    const state = useSelector((rootState) => rootState.videoState);
     const dispatch = useDispatch();
 
     const loadVideo = (refElement) => {
         // sanitize input
         let refValue = refElement.current.value;
         //TODO
-        if(refValue != null && isValidUrl(refValue))
-        {
-            dispatch(changeUrl(refValue));
+        if (refValue != null && isValidUrl(refValue)) {
+            dispatch(updateStateAsync({
+                ...state,
+                url: refValue
+            }));
         }
     }
 
-    useEffect(()=>{
-        if(isValidUrl(state.url))
-        {
-            // Let signlar know this is the video that should be streamed
-            console.log(`Letting my app know that this is the URL to use`);
-            
-        }
-    },[state.url])
 
     const boxRefMain = useRef(null);
     const boxRefSecondary = useRef(null);
@@ -90,7 +85,6 @@ function Player(props) {
             console.log(`not valid url`)
           return false;  
         }
-      
         return true;
       }
 
@@ -107,6 +101,27 @@ function Player(props) {
         console.log(`going to new position`);
         playerRef.current.seekTo(5);
     }
+
+    const handlePlay = () => {
+        dispatch(updateStateAsync({
+            ...state,
+            playing: true
+        }));
+    }
+
+    const handlePause = () => {
+        dispatch(updateStateAsync({
+            ...state,
+            playing: false
+        }));
+    }
+
+    const getPlayer = 
+        getIsHost()?
+        <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls url={state.url} onPlay={handlePlay} onPause={handlePause} ></ReactPlayer>
+        :
+        <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls={false} url={state.url} volume={1.0}></ReactPlayer>
+
     return (
         <div>
             <FixedWrapper>
@@ -120,7 +135,8 @@ function Player(props) {
                                 </SearchButton>
                             </Flex>
                         </SearchPromptContainer> :
-                        <ReactPlayer width='100%' height="100%" ref={playerRef} playing={true} config={{ youtube: { playerVars: { start: 0 } } }} onSeek={seekView} controls url={state.url} onProgress={logProgress}  ></ReactPlayer>}
+                        getPlayer
+                    }
                 </AbsoluteContainer>
             </FixedWrapper>
             {state.url != null &&
