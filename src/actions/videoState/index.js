@@ -1,1 +1,1 @@
-export {changeUrl} from './videoState';
+export {updateState, updateStateAsync} from './videoState';
