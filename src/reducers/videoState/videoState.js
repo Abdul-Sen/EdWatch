@@ -1,19 +1,15 @@
 const INIT_STATE = {
     playerReady: false,
+    playing: true,
     url: null,
 }
 
 const videoState = (state = INIT_STATE, action) => {
     switch (action.type) {
-        case 'CHANGE_URL':
-            return{
-                ...state,
-                url: action.url
-            };
-        case 'CHANGE_PROFILEIMAGE':
+        case 'UPDATE_STATE':
             return {
                 ...state,
-                profileImage: action.profileImage
+                ...action.payload
             };
         default:
             return state;
