@@ -39,10 +39,9 @@ connect.on('NewMessage', (message) => {
  * Starts connecting to the signlar hub
  */
 export const startConnection = async () => {
-    const state = globalStore.getState();
         try {
         await connect.start();
-        await connect.invoke("AddCurrentUserToGroup",groupID ,state.userProfile.name);
+        await connect.invoke("CreateGroup", groupID);
         console.log(`connected`);
         console.log(`---------IMPORTANT---------`);
         console.log(connect);
