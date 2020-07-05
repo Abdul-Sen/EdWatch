@@ -88,18 +88,45 @@ function Player(props) {
         return true;
       }
 
-    const logProgress = (progressObj) => {
-        console.log(`Test fucntion called`);
-        console.log(progressObj);
-    }
-    const seekView = (thing) => {
-        console.log(`seekview called`);
-        console.log(thing);
+    useEffect(()=>{
+        if(state.seekTo == true && getIsHost() == false)
+        {
+            console.log(`calling seekto`);
+            seekToPos(parseFloat(state.playedSeconds));
+            dispatch(updateState({...state,seekTo: false}));
+        }
+
+    },[state.seekTo])
+
+    const checkIfSeekedByHost = (progressObj) => {
+
+        if (progressObj.playedSeconds - state.playedSeconds > 2 || progressObj.playedSeconds - state.playedSeconds < - 2) {
+            console.log(`seek detected`);
+            console.log(`-------------------------------`)
+            console.log(`new played: ${progressObj.playedSeconds}.`);
+            console.log(`current played: ${state.playedSeconds}.`);
+            console.log(`difference: ${progressObj.playedSeconds - state.playedSeconds}.`);
+            console.log(`-------------------------------`)
+            dispatch(updateStateAsync({
+                ...state,
+                playedSeconds: progressObj.playedSeconds,
+                seekTo: true
+            }));
+            dispatch(updateState({
+                ...state,
+                seekTo: false
+            }));
+        }
+        else{
+            dispatch(updateState({
+                ...state,
+                playedSeconds: progressObj.playedSeconds
+            }));
+        }
     }
 
-    const newPosVid = () => {
-        console.log(`going to new position`);
-        playerRef.current.seekTo(5);
+    const seekToPos = (val)=>{
+        playerRef.current.seekTo(val);
     }
 
     const handlePlay = () => {
@@ -116,11 +143,11 @@ function Player(props) {
         }));
     }
 
-    const getPlayer = 
-        getIsHost()?
-        <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls url={state.url} onPlay={handlePlay} onPause={handlePause} ></ReactPlayer>
-        :
-        <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls={false} url={state.url} volume={1.0}></ReactPlayer>
+    const getPlayer =
+        getIsHost() ?
+            <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls url={state.url} onPlay={handlePlay} onPause={handlePause} onProgress={checkIfSeekedByHost} progressInterval={1000}></ReactPlayer>
+            :
+            <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls={false} url={state.url} volume={1.0}></ReactPlayer>
 
     return (
         <div>
