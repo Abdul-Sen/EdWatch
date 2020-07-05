@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/EdWatch/static/css/main.d9bfba4f.chunk.css",
-    "main.js": "/EdWatch/static/js/main.4222d26d.chunk.js",
-    "main.js.map": "/EdWatch/static/js/main.4222d26d.chunk.js.map",
+    "main.js": "/EdWatch/static/js/main.bb2dd006.chunk.js",
+    "main.js.map": "/EdWatch/static/js/main.bb2dd006.chunk.js.map",
     "runtime-main.js": "/EdWatch/static/js/runtime-main.56c5c196.js",
     "runtime-main.js.map": "/EdWatch/static/js/runtime-main.56c5c196.js.map",
     "static/js/2.800407b3.chunk.js": "/EdWatch/static/js/2.800407b3.chunk.js",
     "static/js/2.800407b3.chunk.js.map": "/EdWatch/static/js/2.800407b3.chunk.js.map",
     "index.html": "/EdWatch/index.html",
-    "precache-manifest.bfb0093a1b0f0d57bcafc93f9fb14ca9.js": "/EdWatch/precache-manifest.bfb0093a1b0f0d57bcafc93f9fb14ca9.js",
+    "precache-manifest.49bfcf8de6abf4a098cf7442e1b05dc5.js": "/EdWatch/precache-manifest.49bfcf8de6abf4a098cf7442e1b05dc5.js",
     "service-worker.js": "/EdWatch/service-worker.js",
     "static/css/main.d9bfba4f.chunk.css.map": "/EdWatch/static/css/main.d9bfba4f.chunk.css.map",
     "static/js/2.800407b3.chunk.js.LICENSE.txt": "/EdWatch/static/js/2.800407b3.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.56c5c196.js",
     "static/js/2.800407b3.chunk.js",
     "static/css/main.d9bfba4f.chunk.css",
-    "static/js/main.4222d26d.chunk.js"
+    "static/js/main.bb2dd006.chunk.js"
   ]
 }
