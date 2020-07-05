@@ -136,7 +136,7 @@ connect.on("GetHostVideo",async ()=>{
     {
         try{
             let id = getGroupId();
-           await connect.invoke("SetGroupVideo",url, id);
+           await connect.invoke("UpdateGroupVideoState",JSON.stringify({...state.videoState, seekTo: true}), id);
         }
         catch(err)
         {

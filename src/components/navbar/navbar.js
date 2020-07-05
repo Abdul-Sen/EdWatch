@@ -92,7 +92,7 @@ function Navbar(props) {
 
             <LeftContainer>
                 <Icon src={process.env.PUBLIC_URL + 'logo.ico'} />
-                <AppName>watchya</AppName>
+                <AppName>EdWatch</AppName>
             </LeftContainer>
             <div style={{ marginLeft: "auto" }}>
                 <Button onClick={handleInvite}>Invite <FontAwesomeIcon icon={faPlus} /></Button>
