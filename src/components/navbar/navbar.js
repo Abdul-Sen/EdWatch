@@ -91,7 +91,7 @@ function Navbar(props) {
             }
 
             <LeftContainer>
-                <Icon src={process.env.PUBLIC_URL + 'logo.ico'} />
+                <Icon src={process.env.PUBLIC_URL + '/logo.ico'} />
                 <AppName>EdWatch</AppName>
             </LeftContainer>
             <div style={{ marginLeft: "auto" }}>
