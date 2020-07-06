@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cc790268803aba9ef28c231c1833f750",
+    "revision": "f13e0dfe8ea4ca6edd6744291d84367f",
     "url": "/EdWatch/index.html"
   },
   {
-    "revision": "cf58d9bf906b37e1f12f",
+    "revision": "b2b633eecdb14894f5f7",
     "url": "/EdWatch/static/css/main.d9bfba4f.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/EdWatch/static/js/2.b13b1a4b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cf58d9bf906b37e1f12f",
-    "url": "/EdWatch/static/js/main.b7efb0a2.chunk.js"
+    "revision": "b2b633eecdb14894f5f7",
+    "url": "/EdWatch/static/js/main.6b42c2a2.chunk.js"
   },
   {
     "revision": "7d35e8f4ff2d8cd43a17",
