@@ -39,6 +39,7 @@ align-self: center;
 font-size: ${props => props.theme.fontSizes.large};
 font-family: ${props => props.theme.fonts[0]};
 margin-left: 10px;
+font-weight: lighter;
 `;
 
 const LeftContainer = styled.div`
@@ -92,7 +93,7 @@ function Navbar(props) {
 
             <LeftContainer>
                 <Icon src={process.env.PUBLIC_URL + '/logo.ico'} />
-                <AppName>EdWatch</AppName>
+                <AppName><span style={{fontWeight: "bold"}}>Ed</span>Watch</AppName>
             </LeftContainer>
             <div style={{ marginLeft: "auto" }}>
                 <Button onClick={handleInvite}>Invite <FontAwesomeIcon icon={faPlus} /></Button>

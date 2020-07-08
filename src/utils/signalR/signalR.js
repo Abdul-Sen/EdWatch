@@ -5,7 +5,8 @@ import {updateState} from '../../actions/videoState';
 import globalStore from '../../store/store';
 import { v4 as uuidv4 } from 'uuid';
 
-const connect = new signalR.HubConnectionBuilder().withUrl("http://localhost:8080/messagehub").build();
+console.log(`||${process.env.REACT_APP_API_URL}||`);
+const connect = new signalR.HubConnectionBuilder().withUrl(process.env.REACT_APP_API_URL).build();
 var groupID = uuidv4();
 
 let host = true;
