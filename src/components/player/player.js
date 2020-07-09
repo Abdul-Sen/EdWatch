@@ -90,7 +90,7 @@ function Player(props) {
       }
 
     useEffect(()=>{
-        if(state.seekTo == true && getIsHost() == false)
+        if(state.seekTo == true && getIsHost() == false && state.url != null)
         {
             console.log(`calling seekto`);
             seekToPos(parseFloat(state.playedSeconds));
