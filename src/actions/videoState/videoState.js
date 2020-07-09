@@ -1,13 +1,13 @@
 import { updateGroupVideoState } from '../../utils/signalR';
 
-export const updateState = (newState) => ({
+export const updateVideoState = (newState) => ({
     type: 'UPDATE_STATE',
     payload: newState
 });
 
-export const updateStateAsync = (newState) => {
+export const updateVideoStateAsync = (newState) => {
     return async (dispatch) => {
         await updateGroupVideoState(newState);
-        dispatch(updateState(newState));
+        dispatch(updateVideoState(newState));
     }
 }
