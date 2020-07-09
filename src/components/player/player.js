@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect, Fragment } from 'react';
+import React, { useRef, useEffect, Fragment } from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { ThemeButton } from '../../styles';
-import { updateState, updateStateAsync } from '../../actions/videoState';
+import { updateVideoState, updateVideoStateAsync } from '../../actions/videoState';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsHost } from '../../utils/signalR';
 
@@ -67,7 +67,7 @@ function Player(props) {
         let refValue = refElement.current.value;
         //TODO
         if (refValue != null && isValidUrl(refValue)) {
-            dispatch(updateStateAsync({
+            dispatch(updateVideoStateAsync({
                 ...state,
                 url: refValue
             }));
@@ -94,7 +94,7 @@ function Player(props) {
         {
             console.log(`calling seekto`);
             seekToPos(parseFloat(state.playedSeconds));
-            dispatch(updateState({...state,seekTo: false}));
+            dispatch(updateVideoState({...state,seekTo: false}));
         }
 
     },[state.seekTo])
@@ -108,18 +108,18 @@ function Player(props) {
             console.log(`current played: ${state.playedSeconds}.`);
             console.log(`difference: ${progressObj.playedSeconds - state.playedSeconds}.`);
             console.log(`-------------------------------`)
-            dispatch(updateStateAsync({
+            dispatch(updateVideoStateAsync({
                 ...state,
                 playedSeconds: progressObj.playedSeconds,
                 seekTo: true
             }));
-            dispatch(updateState({
+            dispatch(updateVideoState({
                 ...state,
                 seekTo: false
             }));
         }
         else{
-            dispatch(updateState({
+            dispatch(updateVideoState({
                 ...state,
                 playedSeconds: progressObj.playedSeconds
             }));
@@ -131,14 +131,14 @@ function Player(props) {
     }
 
     const handlePlay = () => {
-        dispatch(updateStateAsync({
+        dispatch(updateVideoStateAsync({
             ...state,
             playing: true
         }));
     }
 
     const handlePause = () => {
-        dispatch(updateStateAsync({
+        dispatch(updateVideoStateAsync({
             ...state,
             playing: false
         }));

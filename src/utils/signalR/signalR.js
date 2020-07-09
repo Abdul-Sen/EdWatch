@@ -1,7 +1,7 @@
 // import {HubConnectionBuilder} from '@microsoft/signalr';
 import * as signalR from '@microsoft/signalr';
 import { addMessage } from '../../actions/messages';
-import {updateState} from '../../actions/videoState';
+import {updateVideoState} from '../../actions/videoState';
 import globalStore from '../../store/store';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -153,7 +153,7 @@ connect.on("LoadGroupVideo", (url)=>{
     let state = globalStore.getState();
     if(state.videoState.url != url)
     {
-        globalStore.dispatch(updateState({
+        globalStore.dispatch(updateVideoState({
             ...state,
             url: url
         }));
@@ -173,5 +173,5 @@ export const updateGroupVideoState = async (state)=>{
     }
 }
 connect.on("NewVideoState", (vidState)=>{
-    globalStore.dispatch(updateState(JSON.parse(vidState)));
+    globalStore.dispatch(updateVideoState(JSON.parse(vidState)));
 });
