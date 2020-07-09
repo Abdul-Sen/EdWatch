@@ -1,7 +1,5 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {useSelector,useDispatch} from 'react-redux';
-import {addMessage,addMessageAsync} from '../../actions/messages';
 
 const UserImage = styled.img`
     width: 2rem;
@@ -26,29 +24,11 @@ const Container = styled.div`
 `;
 
 function Input(props) {
-    const inputBox = useRef(null);
-    const userProfile = useSelector(state => state.userProfile);
-    const dispatch = useDispatch();
-    const saveMessage = (newMessage)=>{
-        dispatch(addMessageAsync(newMessage));
-    }
 
-    const checkIfEnter = event => {
-        if (event.key === "Enter" && event.target.value != "") {
-            const {value} = event.target;
-            const payload = {
-            image : userProfile.profileImage,
-            name: userProfile.name,
-            message: value
-            }
-            saveMessage(payload);
-            inputBox.current.value= "";
-        }
-      };
     return (
         <Container>
-            <UserImage src={userProfile.profileImage} />
-            <InputBox ref={inputBox} type="text" onKeyDown={checkIfEnter}></InputBox>
+            <UserImage src={props.profileImage} />
+            <InputBox ref={props.inputBoxRef} type="text" onKeyDown={props.checkIfEnter}></InputBox>
         </Container>
     );
 }
