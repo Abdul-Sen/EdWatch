@@ -165,7 +165,7 @@ export const updateGroupVideoState = async (state)=>{
     {
         let id = getGroupId();
         try{
-            connect.invoke("UpdateGroupVideoState", JSON.stringify(state), id);
+           await connect.invoke("UpdateGroupVideoState", JSON.stringify(state), id);
         }
         catch(err) {
             console.log(err);
