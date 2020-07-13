@@ -1,7 +1,7 @@
 {
   "name": "react",
   "version": "1.0.0",
-  "description": "React example starter project",
+  "description": "EdWatch Client allowing users to watch videos together",
   "homepage": "https://abdul-sen.github.io/EdWatch",
   "keywords": [
     "react",

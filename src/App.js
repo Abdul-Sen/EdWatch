@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ChatBox from './components/chatbox';
 import Navbar from './components/navbar';
 import Player from './components/player';
+import Search from './components/search';
 import {startConnection} from './utils/signalR';
 
 const Container = styled.div`
@@ -64,6 +65,7 @@ export default function App() {
           <LeftContainer >              
             <Player />
             <Profile />
+            <Search />
           </LeftContainer>
           <RightContainer>
               <ChatBox />
