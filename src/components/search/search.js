@@ -5,6 +5,8 @@ import {searchForVideos} from '../../api/videoSearch';
 
 import SearchResult from '../searchResult';
 import Searchbar from '../searchbar';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleNotch} from "@fortawesome/free-solid-svg-icons";
 
 
 function Search(){
@@ -23,6 +25,7 @@ function Search(){
           console.log(debouncedSearchTerm, apibase);
           const fetchData = async ()=>{
             const result = await searchForVideos(debouncedSearchTerm,apibase);
+            setIsSearching(false);
             setResults(result);
           }
           fetchData();
@@ -30,7 +33,9 @@ function Search(){
           // TODO - Call Videosearch wrapper here, inside, we will see if user wants to search from YT, VIMIO, DAILY MOTION etc
         } else {
           setResults([]);
+          setIsSearching(false);
         }
+
       },
       [debouncedSearchTerm]
     );
@@ -43,15 +48,15 @@ function Search(){
 
   const updateSearch = (e)=>{
       let {value} = e.target;
+      setIsSearching(true);
       setSearchTerm(value);
   }
   
     return (
         <Fragment>
             <Searchbar onChangeHandler={updateSearch} apibaseHandler={changeApiBase} ></Searchbar>
+            {isSearching && <FontAwesomeIcon icon={faCircleNotch} spin />}
             {results.length != 0 && results.map((val,ind)=>{
-              console.log(`inside map function`)
-              console.log(val);
               return(
                 <SearchResult data={val} key={ind} />
               )
