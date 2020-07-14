@@ -67,7 +67,7 @@ export const searchForVideos = async function(saerchTerm, siteBaseUrl){
     {
 
       case "youtube": 
-         response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=7&q=${saerchTerm}&key=AIzaSyCHi0txFZ-Nc3vX8e9yB2ljDp1kUdlYwrk`);
+         response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=7&q=${saerchTerm}&key=${process.env.REACT_APP_YT_PUBLIC_KEY}`);
          result = await response.json();
         responseArr = youtubeParser(result);
         break;
@@ -76,7 +76,7 @@ export const searchForVideos = async function(saerchTerm, siteBaseUrl){
        response = await fetch(`https://api.vimeo.com/videos?&query=${saerchTerm}&page=1&per_page=7`, {
         method: 'get', 
         headers: new Headers({
-          'Authorization': 'bearer 38bb815cfe5c89ec36c5b8180ee6c1fd'
+          'Authorization': `bearer ${process.env.REACT_APP_VIMEO_PUBLIC_KEY}`
         })
       });
         result = await response.json();
