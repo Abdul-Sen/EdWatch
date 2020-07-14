@@ -7,6 +7,9 @@ import Navbar from './components/navbar';
 import Player from './components/player';
 import Search from './components/search';
 import {startConnection} from './utils/signalR';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Container = styled.div`
   justify-content: space-around;
@@ -15,6 +18,10 @@ const Container = styled.div`
   background-color: ${props => props.theme.colors.backgroundColors.primary};
   display:flex;
   overflow-y:auto;
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+  padding-top: 50px;
+
 
   @media (max-width: 768px) {
     display: flex;
@@ -72,6 +79,7 @@ export default function App() {
           </RightContainer>
         </Container>
       </MainContainer>
+      <ToastContainer position="bottom-left" limit={3} />
     </Theme>
   );
 } 
