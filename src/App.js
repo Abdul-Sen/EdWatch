@@ -6,7 +6,7 @@ import ChatBox from './components/chatbox';
 import Navbar from './components/navbar';
 import Player from './components/player';
 import Search from './components/search';
-import {startConnection} from './utils/signalR';
+import {startConnection} from './api/signalR';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

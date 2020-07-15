@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { getIsHost } from '../../utils/signalR';
+import { getIsHost } from '../../api/signalR';
 import { useDispatch } from 'react-redux';
 import { updateVideoStateAsync } from '../../actions/videoState';
 import {toast} from 'react-toastify';

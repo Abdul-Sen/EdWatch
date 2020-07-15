@@ -1,4 +1,4 @@
-import { updateGroupVideoState } from '../../utils/signalR';
+import { updateGroupVideoState } from '../../api/signalR';
 
 export const updateVideoState = (newState) => ({
     type: 'UPDATE_STATE',

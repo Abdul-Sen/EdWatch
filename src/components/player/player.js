@@ -7,7 +7,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { ThemeButton } from '../../styles';
 import { updateVideoState, updateVideoStateAsync } from '../../actions/videoState';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsHost } from '../../utils/signalR';
+import { getIsHost } from '../../api/signalR';
 
 const AbsoluteContainer = styled.div`
   position: absolute;

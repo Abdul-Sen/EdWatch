@@ -4,6 +4,7 @@ import { addMessage } from '../../actions/messages';
 import {updateVideoState} from '../../actions/videoState';
 import globalStore from '../../store/store';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 
 console.log(`||${process.env.REACT_APP_API_URL}||`);
 const connect = new signalR.HubConnectionBuilder().withUrl(process.env.REACT_APP_API_URL).build();
@@ -56,16 +57,22 @@ export const startConnection = async () => {
 
 export const joinGroup = async (groupName)=>{
     const state = globalStore.getState();
-    try{
-        await connect.invoke("AddCurrentUserToGroup",groupName ,state.userProfile.name);
-        console.log(`You have now joined someone elses group`);
-        setIsHost(false);
-        setNewGroupID(groupName);
-    }
-    catch(Err)
+    if(getGroupId() != groupName)
     {
-        console.log(`Failed to join someone elses group`);
-        console.log(Err);
+        try{
+            await connect.invoke("AddCurrentUserToGroup",groupName ,state.userProfile.name);
+            console.log(`You have now joined someone elses group`);
+            setIsHost(false);
+            setNewGroupID(groupName);
+        }
+        catch(Err)
+        {
+            console.log(`Failed to join someone elses group`);
+            console.log(Err);
+        }
+    }
+    else{
+        toast.error("You are already part of this group");
     }
 }
 

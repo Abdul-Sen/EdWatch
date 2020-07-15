@@ -1,4 +1,4 @@
-import {SendNewGroupMessage} from '../../utils/signalR';
+import {SendNewGroupMessage} from '../../api/signalR';
 
 export const addMessage = (message) => ({
     type: 'ADD_MESSAGE',
