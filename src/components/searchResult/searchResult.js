@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { getIsHost } from '../../api/signalR';
 import { useDispatch } from 'react-redux';
 import { updateVideoStateAsync } from '../../actions/videoState';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faCheck} from "@fortawesome/free-solid-svg-icons";
-import {copyText} from '../../utils';
+import { faInfoCircle, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { copyText } from '../../utils';
 const Container = styled.div`
     display: grid;
     grid-template-areas:
@@ -21,10 +21,14 @@ const Container = styled.div`
 `;
 
 const ImageContainer = styled.img`
-    cursor: pointer;
+ cursor: pointer;
     grid-area: leftbar;
-    width: 100%;
-    height: 100%;
+    display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+  justify-self: end;
 `;
 
 const ContentContainer = styled.div`
@@ -49,15 +53,15 @@ function SearchResult({ data }) {
 
     const dispatch = useDispatch();
 
-    const IconWrap = ({userIcon, children})=>  <Fragment><FontAwesomeIcon icon={userIcon}> </FontAwesomeIcon> {children}</Fragment>;
+    const IconWrap = ({ userIcon, children }) => <Fragment><FontAwesomeIcon icon={userIcon}> </FontAwesomeIcon> {children}</Fragment>;
 
     const handleVideoSelect = () => {
         console.log(`video URL is... ${data.video_url}`);
         if (getIsHost()) {
             // Play selected video
             console.log(`user is host, playing new video`);
-            dispatch(updateVideoStateAsync({url: data.video_url}));
-            toast(<IconWrap userIcon={faCheck}>Video loaded for all users</IconWrap>, {delay: 1000});
+            dispatch(updateVideoStateAsync({ url: data.video_url }));
+            toast(<IconWrap userIcon={faCheck}>Video loaded for all users</IconWrap>, { delay: 1000 });
         }
         else {
             console.log(`user is not host, copying video to clipboard`);
@@ -69,12 +73,12 @@ function SearchResult({ data }) {
 
     return <Fragment>
         <Container onClick={handleVideoSelect}>
-        <ImageContainer src={data.thumbnail} />
-        <ContentContainer>
-            <H2>{data.title}</H2>
-<SubHead>{data.creator} • {data.uploadDate}</SubHead>
-<SubHead>{data.description}</SubHead>
-        </ContentContainer>
+            <ImageContainer src={data.thumbnail} />
+            <ContentContainer>
+                <H2>{data.title}</H2>
+                <SubHead>{data.creator} • {data.uploadDate}</SubHead>
+                <SubHead>{data.description}</SubHead>
+            </ContentContainer>
         </Container>
     </Fragment>
 }
