@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "db8a95dffe44e93603df8b0d71b8414d",
+    "revision": "bc69aec56ad9f5e9976f60bcaad8342d",
     "url": "/EdWatch/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/EdWatch/static/css/2.d34346ea.chunk.css"
   },
   {
-    "revision": "4a8dc6fa32a29405bbf2",
+    "revision": "764224d96b8ce694f588",
     "url": "/EdWatch/static/css/main.d9bfba4f.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/EdWatch/static/js/2.0c8691f7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4a8dc6fa32a29405bbf2",
-    "url": "/EdWatch/static/js/main.7e2e6e89.chunk.js"
+    "revision": "764224d96b8ce694f588",
+    "url": "/EdWatch/static/js/main.b3630525.chunk.js"
   },
   {
     "revision": "7d35e8f4ff2d8cd43a17",
