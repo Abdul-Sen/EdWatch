@@ -157,17 +157,23 @@ function Player(props) {
                     {state.url == null ?
                         <SearchPromptContainer>
                             <Flex>
+                                {getIsHost() ? 
+                                <Fragment>
                                 <SearchVideo ref={boxRefMain} placeholder={"Enter Video URL"} large type="text"></SearchVideo>
                                 <SearchButton onClick={()=>{loadVideo(boxRefMain)}}>
                                     Load <FontAwesomeIcon icon={faChevronRight} />
                                 </SearchButton>
+                                </Fragment>
+                                :
+                                <p>sit back and relax, the host will take care of everything</p>
+                                }
                             </Flex>
                         </SearchPromptContainer> :
                         getPlayer
                     }
                 </AbsoluteContainer>
             </FixedWrapper>
-            {state.url != null &&
+            {state.url != null && getIsHost() &&
             <Fragment>
             <SearchVideo ref={boxRefSecondary} type="text" placeholder={"Enter Video URL"} ></SearchVideo>
             <SearchButton small onClick={()=>{loadVideo(boxRefSecondary)}}>
