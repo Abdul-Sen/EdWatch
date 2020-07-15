@@ -6,7 +6,7 @@ import { updateVideoStateAsync } from '../../actions/videoState';
 import {toast} from 'react-toastify';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle, faCheck} from "@fortawesome/free-solid-svg-icons";
-
+import {copyText} from '../../utils';
 const Container = styled.div`
     display: grid;
     grid-template-areas:
@@ -61,22 +61,8 @@ function SearchResult({ data }) {
         }
         else {
             console.log(`user is not host, copying video to clipboard`);
-            // Copy a message to your clipboard
             let message = `Please play ${data.video_url}`;
-            // Create new element
-            let el = document.createElement('textarea');
-            // Set value (string to be copied)
-            el.value = message;
-            // Set non-editable to avoid focus and move outside of view
-            el.setAttribute('readonly', '');
-            el.style = { position: 'absolute', left: '-9999px' };
-            document.body.appendChild(el);
-            // Select text inside element
-            el.select();
-            // Copy text to clipboard
-            document.execCommand('copy');
-            // Remove temporary element
-            document.body.removeChild(el);
+            copyText(message);
             toast.info(<IconWrap userIcon={faInfoCircle}>Copied message to your clipboard, just paste in chat ✌️</IconWrap>);
         }
     }

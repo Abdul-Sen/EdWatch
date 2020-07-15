@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { getGroupId, joinGroup } from '../../utils/signalR';
+import { getGroupId, joinGroup } from '../../api/signalR';
 import Modal from '../modal';
-
+import { toast } from 'react-toastify';
+import {copyText} from '../../utils';
 
 const Container = styled.div`
     display: flex;
@@ -56,11 +57,17 @@ const Input = styled.input`
 
 function Navbar(props) {
     const joinRef = useRef(null);
-    const [showGroupID, setShowGroupID] = useState(false);
+
+    
     const [showJoinModal, setShowJoinModal] = useState(false);
     // User is always part of the group, otherwise use a DB to store user context
+
     const handleInvite = () => {
-        setShowGroupID((current) => !current);
+
+        let sessionID = getGroupId();
+        copyText(sessionID);
+        toast("Your session ID has been copied");
+        
     }
 
     const handleJoin = () => {
@@ -75,13 +82,6 @@ function Navbar(props) {
 
     return (
         <Container>
-            {showGroupID &&
-                <Modal closeHandler={handleInvite} >
-                    <Heading>Invite</Heading>
-                    <p>Send the ID below to allow people to join: </p>
-                    <Input type="text" readOnly value={getGroupId()} ></Input>
-                </Modal>
-            }
             {showJoinModal &&
                 <Modal closeHandler={handleJoin}>
                     <Heading>Join</Heading>
