@@ -4,7 +4,9 @@ const INIT_STATE = {
     url: null,
     played: 0,
     playedSeconds: 0,
-    seekTo: false
+    seekTo: false,
+    iRequestedState: false,
+    pausedByViewer: false
 }
 
 const videoState = (state = INIT_STATE, action) => {

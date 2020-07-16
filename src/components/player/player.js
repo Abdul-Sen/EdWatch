@@ -7,7 +7,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { ThemeButton } from '../../styles';
 import { updateVideoState, updateVideoStateAsync } from '../../actions/videoState';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsHost } from '../../api/signalR';
+import { getIsHost, getNewHostState } from '../../api/signalR';
 
 const AbsoluteContainer = styled.div`
   position: absolute;
@@ -92,16 +92,21 @@ function Player(props) {
     useEffect(()=>{
         if(state.seekTo == true && getIsHost() == false && state.url != null)
         {
-            console.log(`calling seekto`);
             seekToPos(parseFloat(state.playedSeconds));
-            dispatch(updateVideoState({...state,seekTo: false}));
+            if(state.iRequestedState)
+            {
+                dispatch(updateVideoState({...state,seekTo: false, iRequestedState: false}));
+            }
+            else{
+                dispatch(updateVideoState({...state,seekTo: false}));
+            }
         }
 
     },[state.seekTo])
 
     const checkIfSeekedByHost = (progressObj) => {
 
-        if (progressObj.playedSeconds - state.playedSeconds > 2 || progressObj.playedSeconds - state.playedSeconds < - 2) {
+        if (progressObj.playedSeconds - state.playedSeconds > 5 || progressObj.playedSeconds - state.playedSeconds < - 5) {
             console.log(`seek detected`);
             console.log(`-------------------------------`)
             console.log(`new played: ${progressObj.playedSeconds}.`);
@@ -144,11 +149,33 @@ function Player(props) {
         }));
     }
 
+    const handleViewerPause = ()=>{
+        if(state.playing)
+        {
+            dispatch(updateVideoState({
+                ...state,
+                pausedByViewer: true
+            }));
+        }
+    }
+    
+    const handleViewerPlay = async ()=>{
+        if(state.pausedByViewer)
+        {
+            dispatch(updateVideoState({
+                ...state,
+                iRequestedState: true,
+                pausedByViewer: false
+            }));
+            await getNewHostState();
+        }
+    }
+
     const getPlayer =
         getIsHost() ?
             <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls url={state.url} onPlay={handlePlay} onPause={handlePause} onProgress={checkIfSeekedByHost} progressInterval={1000}></ReactPlayer>
             :
-            <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls={false} url={state.url} volume={1.0}></ReactPlayer>
+            <ReactPlayer width='100%' height="100%" ref={playerRef} playing={state.playing} controls={false} url={state.url} volume={1.0} onPause={handleViewerPause} onPlay={handleViewerPlay}></ReactPlayer>
 
     return (
         <div>
