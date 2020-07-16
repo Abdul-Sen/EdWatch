@@ -1,1 +1,1 @@
-export {startConnection, sendNewMessageAsync, getGroupId, joinGroup, setNewGroupID, SendNewGroupMessage, sendAlert, setIsHost, getIsHost, updateGroupVideoState} from './signalR';
+export {startConnection, sendNewMessageAsync, getGroupId, joinGroup, setNewGroupID, SendNewGroupMessage, sendAlert, setIsHost, getIsHost, updateGroupVideoState, getNewHostState} from './signalR';

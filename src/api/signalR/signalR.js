@@ -167,6 +167,45 @@ connect.on("LoadGroupVideo", (url)=>{
     }
 });
 
+export const getNewHostState = async ()=>{
+    let id = getGroupId();
+    try{
+        await connect.invoke("GetHostStateNew", id);
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+}
+
+/**
+ * This method will ask host to give new video state for all users, then the user requesting the video state
+ * will figure out its for them and update their video
+ */
+connect.on("GiveMeHostState", async ()=>{
+    if(getIsHost())
+    {
+        let state = globalStore.getState();
+        let id = getGroupId();
+        try{
+            await connect.invoke("UpdateGroupVideoState",JSON.stringify(state.videoState),id);
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
+    }
+})
+
+connect.on("UpdateViwerVideoStateClient",(state)=>{
+    state = JSON.parse(state);
+    let currentState = globalStore.getState();
+    if(currentState.videoState.iRequestedState)
+    {
+        globalStore.dispatch(updateVideoState({...state,seekTo: true}));
+    }
+})
+
 export const updateGroupVideoState = async (state)=>{
     if(getIsHost())
     {
@@ -180,5 +219,13 @@ export const updateGroupVideoState = async (state)=>{
     }
 }
 connect.on("NewVideoState", (vidState)=>{
-    globalStore.dispatch(updateVideoState(JSON.parse(vidState)));
+    let currentState = globalStore.getState();
+    vidState = JSON.parse(vidState);
+    if(currentState.videoState.iRequestedState)
+    {
+        globalStore.dispatch(updateVideoState({...vidState,seekTo: true}));
+    }
+    else{
+        globalStore.dispatch(updateVideoState(vidState));
+    }
 });
