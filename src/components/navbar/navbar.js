@@ -78,6 +78,7 @@ function Navbar(props) {
     const joinTheRoom = ()=>{
         console.log(joinRef.current.value);
         joinGroup(joinRef.current.value);
+        handleJoin();
     }
 
     return (
