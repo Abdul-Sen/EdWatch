@@ -14,10 +14,13 @@ const Container = styled.div`
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 100px 5px;
     grid-column-gap: 13px;
-    grid-row-gap: 7px;
+    grid-row-gap: 1rem;
     &:active {
         background-color: ${props => props.theme.colors.iconColor.activePrimary};
     }
+    @media (max-width: 500px) {
+      grid-row-gap: 2rem;
+  }
 `;
 
 const ImageContainer = styled.img`

@@ -55,7 +55,7 @@ function Search(){
     return (
         <Fragment>
             <Searchbar onChangeHandler={updateSearch} apibaseHandler={changeApiBase} ></Searchbar>
-            {isSearching && <FontAwesomeIcon icon={faCircleNotch} spin />}
+            {isSearching && <FontAwesomeIcon style={{marginLeft: "50%"}} icon={faCircleNotch} spin />}
             {results.length != 0 && results.map((val,ind)=>{
               return(
                 <SearchResult data={val} key={ind} />

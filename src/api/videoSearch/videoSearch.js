@@ -67,8 +67,10 @@ export const searchForVideos = async function(saerchTerm, siteBaseUrl){
     {
 
       case "youtube": 
+        console.log(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=7&q=${saerchTerm}&key=${process.env.REACT_APP_YT_PUBLIC_KEY}`);
          response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=7&q=${saerchTerm}&key=${process.env.REACT_APP_YT_PUBLIC_KEY}`);
          result = await response.json();
+         console.log(result);
         responseArr = youtubeParser(result);
         break;
 
