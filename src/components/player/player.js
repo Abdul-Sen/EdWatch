@@ -31,6 +31,10 @@ const SearchVideo = styled.input`
     padding: 5px;
     outline-color: #a3a3a3;
     font-size: ${props => props.large ? props.theme.fontSizes.large : props.theme.fontSizes.medium};
+
+    @media (max-width: 768px) {
+        font-size: ${ props => props.theme.fontSizes.medium};
+  }
 `;
 
 const Flex = styled.div`

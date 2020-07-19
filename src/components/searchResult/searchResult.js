@@ -48,6 +48,7 @@ const H2 = styled.h2`
 
 `;
 const SubHead = styled.h5`
+    overflow-wrap: anywhere;
     font-size:  ${props => props.theme.fontSizes.small};
     color: ${props => props.theme.colors.textColors.secondary};
     margin-bottom: ${props => props.theme.fontSizes.xsmall};
