@@ -81,13 +81,20 @@ function Navbar(props) {
         handleJoin();
     }
 
+    const checkIfEnter = (e)=>{
+        if(e.key === "Enter")
+        {
+            joinTheRoom();
+        }
+    }
+
     return (
         <Container>
             {showJoinModal &&
                 <Modal closeHandler={handleJoin}>
                     <Heading>Join</Heading>
                     <p>Join by entering the foreign ID:</p>
-                    <Input ref={joinRef} type="text" ></Input>
+                    <Input ref={joinRef} type="text" onKeyDown={checkIfEnter} ></Input>
                     <button onClick={joinTheRoom}>Join</button>
                 </Modal>
             }

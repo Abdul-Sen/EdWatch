@@ -9,7 +9,7 @@ display: flex;
 flex-direction: column;
 align-items: stretch;
 justify-content: space-between;
-height: 100%;
+height: 100vh;
 padding: 0px 15px 0px 15px;
 `;
 
